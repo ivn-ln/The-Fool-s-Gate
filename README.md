@@ -1,27 +1,21 @@
-# GMTK 2024 Game Jam
+### Setting
 
-## Styling guide
-- Public vars - ```camelCase```
-- "Private" vars - ```_camelCase```
-- Duplicate vars ```camelCase_```
-- Function names, file names - ```snake_case```
-- Node names, folder names, enum names, class names - ```PascalCase```
-- Static vars, enum values - ```MACRO_CASE```
-- Divide logical blocks (function definition, variables definition, etc.) with one empty line
-- Define loaded resources as const, e.g. ```const PLAYER = preload("res://player.tscn")```
-- Use ```i``` as counter iterator in one dimensional for loops 
-- Use ```x```, ```y``` or ```r```, ```c``` (short for row, column) as counter iterators in two dimensional for loops
-- Place comments on same indent level as rest of the code
-- Use ```#!``` for important comments, ```#?``` for questions, ```#TODO:``` for todo
-- Try making your code understandable at glance. If impossible/unefficient - comment (i.e. don't pollute your code with unneccesary comments)
+The kingdom is in decline, and an unknown disease begins to ravage the streets. On the same day, an enigmatic fortune teller arrives at the castle, offering to help the King — but only if he allows her to control his fate. Desperate to hold onto his power and life, the old King agrees, locking himself in his room and granting the fortune teller full control over whom he will interact with.
+### How to play?
 
+Pull cards from the deck to reveal person's fate
 
-## Useful tips
-- Avoid random values - store them in a variable
-- Avoid repeating code - make it into a function
-- Avoid handling massive data in code - pull it from resource, csv or json
-- Avoid using theme overrides for massive theme changes - create new theme instead
-- Avoid creating signal chains - use event singleton
-- Use translation codes instead of real text, then add text to translation
-- Make your scenes easy to test
-- Before making anything from scratch google it first and check if it was already written
+Twist the card to reveal its true meaning
+
+Ring the bell to call the guards
+
+Pull the rope to open the gate to king's room
+
+Enjoy!
+### Credits
+
+Developer and Game Designer - illarn
+
+Artist - maryrumi
+
+Dialogs and endings - oulanem

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://bollimtqhu13m"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_05dii"]
+[ext_resource type="Resource" uid="uid://dcslilwoxoyix" path="res://Resources/Cards/the_magician_reversed.tres" id="2_0fq0c"]
+[ext_resource type="Resource" uid="uid://debrl1xjkebya" path="res://Resources/Cards/temperance_reveresed.tres" id="2_6v2c4"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_3got8"]
+
+[resource]
+script = ExtResource("4_3got8")
+text_pieces = Array[String](["Chaos", "Tricks"])
+cards = Array[ExtResource("1_05dii")]([ExtResource("2_6v2c4"), ExtResource("2_0fq0c")])

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://cn10qpot8l32y"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_yqjhe"]
+[ext_resource type="Resource" uid="uid://db5weg4usmuub" path="res://Resources/Cards/devil.tres" id="2_1hyeq"]
+[ext_resource type="Resource" uid="uid://io5at7nprvnu" path="res://Resources/Cards/the_star_reversed.tres" id="3_h55wu"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_jmauv"]
+
+[resource]
+script = ExtResource("4_jmauv")
+text_pieces = Array[String](["Desire", "Infidelity"])
+cards = Array[ExtResource("1_yqjhe")]([ExtResource("2_1hyeq"), ExtResource("3_h55wu")])

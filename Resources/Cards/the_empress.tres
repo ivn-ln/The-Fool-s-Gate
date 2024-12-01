@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://d0na4fbe4pm2r"]
+
+[ext_resource type="Texture2D" uid="uid://b7bvrerybhggj" path="res://Sprites/tarot-card-the-empress.png" id="1_nmdq6"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_fu0ja"]
+
+[resource]
+script = ExtResource("2_fu0ja")
+card_name = "the_empress"
+card_display_name = "III. The Empress"
+card_description = "Motherhood
+Fertility
+Nature"
+card_sprite = ExtResource("1_nmdq6")

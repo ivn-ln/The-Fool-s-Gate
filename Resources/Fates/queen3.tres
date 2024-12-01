@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://ctads0vdaku3b"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_igk4t"]
+[ext_resource type="Resource" uid="uid://btxqltlpqlcra" path="res://Resources/Cards/the_tower.tres" id="2_2cabh"]
+[ext_resource type="Resource" uid="uid://bvs50clryutgc" path="res://Resources/Cards/the_magician.tres" id="3_nvpt8"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_28rwx"]
+
+[resource]
+script = ExtResource("4_28rwx")
+text_pieces = Array[String](["Shattering", "Illusions"])
+cards = Array[ExtResource("1_igk4t")]([ExtResource("2_2cabh"), ExtResource("3_nvpt8")])

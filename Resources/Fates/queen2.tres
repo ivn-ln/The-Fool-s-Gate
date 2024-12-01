@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://lcpx8p02mqms"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_2jf23"]
+[ext_resource type="Resource" uid="uid://1lefbg21p7q5" path="res://Resources/Cards/the_star.tres" id="2_om6ma"]
+[ext_resource type="Resource" uid="uid://7sdn7eini064" path="res://Resources/Cards/temperance.tres" id="3_f56vl"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_1q0ex"]
+
+[resource]
+script = ExtResource("4_1q0ex")
+text_pieces = Array[String](["Inspiration", "Balance"])
+cards = Array[ExtResource("1_2jf23")]([ExtResource("2_om6ma"), ExtResource("3_f56vl")])

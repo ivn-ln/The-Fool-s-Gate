@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://db5weg4usmuub"]
+
+[ext_resource type="Texture2D" uid="uid://dyqrroy4foaol" path="res://Resources/Fates/devil.PNG" id="1_wpryh"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_yuyub"]
+
+[resource]
+script = ExtResource("2_yuyub")
+card_name = "devil"
+card_display_name = "VIII. Justice"
+card_description = "Addiction
+Materialism
+Playfulness"
+card_sprite = ExtResource("1_wpryh")
+reversed = false

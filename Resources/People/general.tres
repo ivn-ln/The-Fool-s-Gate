@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Person" load_steps=7 format=3 uid="uid://dl5m3ao5hkska"]
+
+[ext_resource type="Resource" uid="uid://b0dhwljxtecnr" path="res://Resources/Fates/general1.tres" id="1_km3sw"]
+[ext_resource type="Script" path="res://Scripts/person.gd" id="2_c08fq"]
+[ext_resource type="Resource" uid="uid://uimdm7jikwdl" path="res://Resources/Fates/general2.tres" id="2_e2ois"]
+[ext_resource type="Texture2D" uid="uid://dplhl16gn50su" path="res://Sprites/tarot_general.PNG" id="3_vq0q5"]
+[ext_resource type="Resource" uid="uid://s5nht57rqsv4" path="res://Resources/Fates/general3.tres" id="3_x36r6"]
+[ext_resource type="Texture2D" uid="uid://b2nx8n1m7lm6e" path="res://Sprites/tarot_general_corrupt.PNG" id="4_uljf0"]
+
+[resource]
+script = ExtResource("2_c08fq")
+person_name = "general"
+dialogue = "general"
+sprite = ExtResource("3_vq0q5")
+sprite_corrupted = ExtResource("4_uljf0")
+fate1 = ExtResource("1_km3sw")
+fate2 = ExtResource("2_e2ois")
+fate3 = ExtResource("3_x36r6")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Person" load_steps=3 format=3 uid="uid://d0eus2382slae"]
+
+[ext_resource type="Script" path="res://Scripts/person.gd" id="2_b8kko"]
+[ext_resource type="Texture2D" uid="uid://bkkosugv5gt1w" path="res://Sprites/tarot_masks.PNG" id="3_yfcxa"]
+
+[resource]
+script = ExtResource("2_b8kko")
+person_name = "masks"
+dialogue = "masks"
+sprite = ExtResource("3_yfcxa")
+sprite_corrupted = ExtResource("3_yfcxa")

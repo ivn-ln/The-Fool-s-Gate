@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://dyrky2ryg2r5d"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_x40ir"]
+[ext_resource type="Resource" uid="uid://7sdn7eini064" path="res://Resources/Cards/temperance.tres" id="2_gtqrl"]
+[ext_resource type="Resource" uid="uid://c807dr1xaawpp" path="res://Resources/Cards/wheel_of_fortune_reversed.tres" id="3_h1emb"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_mlqy1"]
+
+[resource]
+script = ExtResource("4_mlqy1")
+text_pieces = Array[String](["Patience", "Lack of Controld"])
+cards = Array[ExtResource("1_x40ir")]([ExtResource("2_gtqrl"), ExtResource("3_h1emb")])

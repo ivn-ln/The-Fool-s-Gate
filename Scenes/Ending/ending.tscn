@@ -1,0 +1,182 @@
+[gd_scene load_steps=14 format=3 uid="uid://j66u5xceoxie"]
+
+[ext_resource type="Script" path="res://Scenes/Ending/ending.gd" id="1_84wjx"]
+[ext_resource type="Texture2D" uid="uid://dfp40f56o06dw" path="res://Sprites/tarot_paper_texture.PNG" id="1_mwtpo"]
+[ext_resource type="Texture2D" uid="uid://bm6fd28twm6jm" path="res://Sprites/tarot_paper_trans.PNG" id="2_w8t5f"]
+[ext_resource type="Texture2D" uid="uid://dmdpvj3anxoky" path="res://Sprites/tarot_balatro.PNG" id="3_suxit"]
+[ext_resource type="Texture2D" uid="uid://cuwsf8gj43xvr" path="res://Sprites/tarot_bg.jpg" id="3_u2gy8"]
+[ext_resource type="Texture2D" uid="uid://erl1c36on88a" path="res://Sprites/tarot_border_hires.PNG" id="5_orkoq"]
+[ext_resource type="Texture2D" uid="uid://dpguxq4k44dmk" path="res://Sprites/tarot_queen.PNG" id="6_4h05c"]
+[ext_resource type="Texture2D" uid="uid://dplhl16gn50su" path="res://Sprites/tarot_general.PNG" id="7_3ymhk"]
+[ext_resource type="PackedScene" uid="uid://dqprji511trpu" path="res://Scenes/EndingBalloon/example_balloon.tscn" id="7_7s6bw"]
+[ext_resource type="Texture2D" uid="uid://bls6gph41kd2l" path="res://Sprites/tarot_noble.PNG" id="8_4mg7n"]
+[ext_resource type="Texture2D" uid="uid://cxnrcrbgd5evf" path="res://Sprites/tarot_mistress.PNG" id="9_c2dro"]
+
+[sub_resource type="Shader" id="Shader_1av1p"]
+code = "shader_type canvas_item;
+
+uniform float outerRadius : hint_range(0.0, 5.0) = 1.0;
+uniform float MainAlpha : hint_range(0.0, 1.0) = 1.0;
+
+void fragment() {
+	float x = abs(UV.x-.5)*2.0;
+	float y = abs(UV.y-.5)*2.0;
+	float v = (sqrt((x*x)+(y*y))/outerRadius);
+	COLOR = vec4(0,0,0,v*MainAlpha);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_teq2a"]
+shader = SubResource("Shader_1av1p")
+shader_parameter/outerRadius = 0.55
+shader_parameter/MainAlpha = 0.3
+
+[node name="Ending" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_84wjx")
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(304, 300)
+texture = ExtResource("3_u2gy8")
+region_enabled = true
+region_rect = Rect2(0, 0, 10000, 600)
+
+[node name="TarotPaperTrans" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_left = 536.0
+offset_right = 960.0
+offset_bottom = 600.0
+texture = ExtResource("2_w8t5f")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="TextureRect" parent="TarotPaperTrans"]
+show_behind_parent = true
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_mwtpo")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Characters" type="Control" parent="TarotPaperTrans/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TarotBalatro" type="TextureRect" parent="TarotPaperTrans/ColorRect/Characters"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+texture_filter = 4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_suxit")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TarotQueen" type="TextureRect" parent="TarotPaperTrans/ColorRect/Characters"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+texture_filter = 4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -424.0
+offset_right = -424.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_4h05c")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TarotGeneral" type="TextureRect" parent="TarotPaperTrans/ColorRect/Characters"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+texture_filter = 4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -848.0
+offset_right = -848.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_3ymhk")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TarotNoble" type="TextureRect" parent="TarotPaperTrans/ColorRect/Characters"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+texture_filter = 4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1272.0
+offset_right = -1272.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_4mg7n")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TarotMistress" type="TextureRect" parent="TarotPaperTrans/ColorRect/Characters"]
+modulate = Color(1.2, 1.2, 1.2, 1)
+texture_filter = 4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1696.0
+offset_right = -1696.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_c2dro")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="NinePatchRect" type="TextureRect" parent="TarotPaperTrans"]
+self_modulate = Color(0.625597, 0.625597, 0.625597, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_orkoq")
+expand_mode = 1
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 0.298039)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_teq2a")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ExampleBalloon" parent="." instance=ExtResource("7_7s6bw")]

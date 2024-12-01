@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://dmqcgbdics7nd"]
+
+[ext_resource type="Texture2D" uid="uid://bhjdnu8acm2bq" path="res://Sprites/tarot-card-high-priestess.png" id="1_835ty"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_d14a7"]
+
+[resource]
+script = ExtResource("2_d14a7")
+card_name = "the_high_priestess"
+card_display_name = "II. The High Priestess"
+card_description = "Intuitive
+Unconscious
+Inner voice"
+card_sprite = ExtResource("1_835ty")

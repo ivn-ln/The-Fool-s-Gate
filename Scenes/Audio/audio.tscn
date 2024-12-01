@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://mhv2ga5tumca"]
+
+[ext_resource type="Script" path="res://Scenes/Audio/audio.gd" id="1_4lb0y"]
+[ext_resource type="AudioStream" uid="uid://du1n2ki5ixyxx" path="res://Audio/Scary-Things-Ahead-2.mp3" id="1_81syk"]
+[ext_resource type="AudioStream" uid="uid://bvrtko44hsxjn" path="res://Audio/Quiet-Tension_Looping.mp3" id="3_bewds"]
+[ext_resource type="AudioStream" uid="uid://b68bpyddkec2c" path="res://Audio/Dark-Things-2_V001.mp3" id="4_6joy8"]
+[ext_resource type="AudioStream" uid="uid://31oy1g8gy34g" path="res://Audio/The-Attic-of-Secrets.mp3" id="5_gylrh"]
+
+[node name="Audio" type="Node"]
+process_mode = 3
+script = ExtResource("1_4lb0y")
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_81syk")
+volume_db = -10.0
+bus = &"Music"
+
+[node name="Day1Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_bewds")
+volume_db = -15.0
+bus = &"Music"
+
+[node name="Day2Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6joy8")
+volume_db = -15.0
+bus = &"Music"
+
+[node name="EndingMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_gylrh")
+volume_db = -20.0
+bus = &"Music"

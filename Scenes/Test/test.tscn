@@ -1,0 +1,874 @@
+[gd_scene load_steps=34 format=3 uid="uid://dic7vrgd63vjg"]
+
+[ext_resource type="Script" path="res://Scenes/Test/test.gd" id="1_vqj0k"]
+[ext_resource type="Resource" uid="uid://feuv6u2kyeax" path="res://Dialogues/main.dialogue" id="2_1rkhk"]
+[ext_resource type="Texture2D" uid="uid://cuwsf8gj43xvr" path="res://Sprites/tarot_bg.jpg" id="3_w31ul"]
+[ext_resource type="Texture2D" uid="uid://utusg68e7tph" path="res://Sprites/tarot_mirror.PNG" id="4_a5wtx"]
+[ext_resource type="PackedScene" uid="uid://73jm5qjy52vq" path="res://Scenes/Balloon/balloon.tscn" id="4_fil87"]
+[ext_resource type="Theme" uid="uid://ctw70s11iv3xo" path="res://Themes/temp.tres" id="5_74dnc"]
+[ext_resource type="PackedScene" uid="uid://cufr5a78yk1op" path="res://Scenes/CardsContainer/cards_container.tscn" id="5_fmw04"]
+[ext_resource type="Texture2D" uid="uid://bkkosugv5gt1w" path="res://Sprites/tarot_masks.PNG" id="6_d2j14"]
+[ext_resource type="Texture2D" uid="uid://dmrc5oc5rhnp4" path="res://Sprites/Light.png" id="6_u3b56"]
+[ext_resource type="Texture2D" uid="uid://d1wc0cpsuuern" path="res://Sprites/tarot_crow.PNG" id="7_3sbmo"]
+[ext_resource type="PackedScene" uid="uid://dcpijf8sojsnl" path="res://Scenes/RopeButton/rope.tscn" id="7_solro"]
+[ext_resource type="Texture2D" uid="uid://cuk1auxjwldrv" path="res://Sprites/tarot_table.jpg" id="7_ttwh7"]
+[ext_resource type="Texture2D" uid="uid://nx46pfqgqiun" path="res://Sprites/tarot_bell.PNG" id="11_nglo3"]
+[ext_resource type="AudioStream" uid="uid://ct7ggf0s3ognv" path="res://Audio/tarot_handbell.mp3" id="13_lob6i"]
+[ext_resource type="AudioStream" uid="uid://bdr5a8uwolvuo" path="res://Audio/tarot_mirror_shatter.mp3" id="15_v8i7c"]
+
+[sub_resource type="Shader" id="Shader_cw6gr"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform vec2 direction = vec2(0.0, -1.0);
+uniform vec4 start_color : source_color;
+uniform vec4 end_color : source_color;
+
+float vmax(vec4 vec)
+{
+	return max(vec.x, max(vec.y, max(vec.z, vec.w)));
+}
+
+float random(vec2 seed, float pmin, float pmax)
+{
+	return pmin + fract(sin(dot(seed.xy, vec2(12.9898, 78.233))) * 43758.5453123) * (pmax - pmin);
+}
+
+float get_color_count(float range)
+{
+	return ceil(clamp(range, 0.0, 1.0) * 255.0);
+}
+
+float get_delta(vec2 uv)
+{
+	vec2 dir = normalize(direction);
+	return (dir.x < 0.0 ? (1.0 - uv.x) : uv.x) * dir.x * dir.x + (dir.y < 0.0 ? (1.0 - uv.y) : uv.y) * dir.y * dir.y;
+}
+
+void fragment()
+{
+	float color_count = get_color_count(vmax(abs(end_color - start_color)));
+	float inv_color_count = 1.0 / color_count;
+
+	float color_index = floor(get_delta(UV) * color_count);
+	vec4 color1 = mix(start_color, end_color, color_index / color_count);
+	vec4 color2 = mix(start_color, end_color, (color_index + 1.0) / color_count);
+
+	float ratio = clamp(mod(get_delta(UV), inv_color_count) * color_count + random(UV, -0.5, 0.5), 0.0, 1.0);
+	COLOR = color1 * (1.0 - ratio) + color2 * ratio;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jhuoh"]
+shader = SubResource("Shader_cw6gr")
+shader_parameter/direction = Vector2(0, -1)
+shader_parameter/start_color = Color(0, 0, 0, 0.294118)
+shader_parameter/end_color = Color(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rdxjg"]
+shader = SubResource("Shader_cw6gr")
+shader_parameter/direction = Vector2(0, -1)
+shader_parameter/start_color = Color(0.617455, 0.617455, 0.617455, 0.0941176)
+shader_parameter/end_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tkyj1"]
+
+[sub_resource type="Shader" id="Shader_des1a"]
+code = "shader_type canvas_item;
+
+// Crack generation
+uniform float crack_depth : hint_range(0.0, 10.0) = 2.236;
+uniform float crack_scale : hint_range(1.0, 10.0) = 4.0;
+uniform float crack_zebra_scale : hint_range(0.0, 10.0) = 2.67;
+uniform float crack_zebra_amp : hint_range(0.0, 10.0) = 1.3;
+uniform float crack_profile : hint_range(0.0, 10.0) = 1.0;
+uniform float crack_slope : hint_range(0.0, 50.0) = 45.8;
+uniform float crack_width : hint_range(0.0, 1.0) = 0.001;
+
+const vec4 background_color = vec4(0.0, 0.0, 0.0, 0.0);
+const vec4 crack_color = vec4(0.0, 0.0, 0.0, 1.0);
+
+// Glass effect
+uniform vec2 refraction_offset = vec2(25.0,25.0);
+uniform vec2 reflection_offset = vec2(1.0,1.0);
+uniform vec4 reflection_color : source_color = vec4(0.588,0.588,0.588,0.5);
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+
+
+
+vec2 hash(vec2 p) {
+    p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
+    return fract(sin(p) * 43758.5453123);
+}
+
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(dot(hash(i + vec2(0.0, 0.0)), f - vec2(0.0, 0.0)),
+                   dot(hash(i + vec2(1.0, 0.0)), f - vec2(1.0, 0.0)), f.x),
+               mix(dot(hash(i + vec2(0.0, 1.0)), f - vec2(0.0, 1.0)),
+                   dot(hash(i + vec2(1.0, 1.0)), f - vec2(1.0, 1.0)), f.x), f.y);
+}
+
+vec3 voronoi(vec2 u) {
+    vec2 p = floor(u);
+    vec2 f = fract(u);
+    float res = 8.0;
+    vec2 b = vec2(0.0);
+    for (int j = -1; j <= 1; j++) {
+        for (int i = -1; i <= 1; i++) {
+            vec2 g = vec2(float(i), float(j));
+            vec2 o = hash(p + g);
+            vec2 r = g - f + o;
+            float d = dot(r, r);
+            if (d < res) {
+                res = d;
+                b = r;
+            }
+        }
+    }
+    return vec3(sqrt(res), b);
+}
+
+vec3 voronoiB(vec2 u) {
+    vec2 p = floor(u);
+    vec2 f = fract(u);
+    float res = 8.0;
+    vec2 C = vec2(0.0);
+    vec2 P = vec2(0.0);
+    for (int j = -1; j <= 1; j++) {
+        for (int i = -1; i <= 1; i++) {
+            vec2 g = vec2(float(i), float(j));
+            vec2 o = hash(p + g);
+            vec2 r = g - f + o;
+            float d = dot(r, r);
+            if (d < res) {
+                res = d;
+                C = g;
+                P = r;
+            }
+        }
+    }
+    res = 8.0;
+    for (int j = -2; j <= 2; j++) {
+        for (int i = -2; i <= 2; i++) {
+            vec2 g = C + vec2(float(i), float(j));
+            vec2 o = hash(p + g);
+            vec2 r = g - f + o;
+            if (dot(P - r, P - r) > 1e-5) {
+                res = min(res, 0.5 * dot((P + r), normalize(r - P)));
+            }
+        }
+    }
+    return vec3(res, P + f);
+}
+
+float fbm(vec2 n) {
+    float total = 0.0, amp = 1.0;
+    for (int i = 0; i < 7; i++) {
+        total += noise(n) * amp;
+        n += n;
+        amp *= 0.5;
+    }
+    return total;
+}
+
+vec4 generate_cracks(vec2 uv) {
+	vec2 U = uv * crack_scale;
+    vec2 I = floor(U / 2.0);
+    bool vert = mod(I.x + I.y, 2.0) == 0.0;
+    vec3 H0;
+    vec4 color = background_color;
+    for (float i = 0.0; i < crack_depth; i++) {
+        vec2 V = U;
+        vec2 D = vec2(crack_zebra_amp * fbm(U / crack_zebra_scale) * crack_zebra_scale);
+        vec3 H = voronoiB(V + D);
+        float d = H.x;
+        d = min(1.0, crack_slope * pow(max(0.0, d - crack_width / 10.), crack_profile));
+        color += vec4(1.0 - d) / exp2(i);
+        U *= 1.5;
+    }
+    color *= crack_color;
+	
+	return color;
+}
+
+
+void fragment() {	
+	COLOR =  generate_cracks(UV);
+	vec4 orig_color = COLOR;
+	vec4 adjacent_color = generate_cracks(UV + TEXTURE_PIXEL_SIZE * reflection_offset);
+	if (adjacent_color.a >= 1.0) {
+		COLOR = reflection_color;
+	} else {
+		COLOR = texture(SCREEN_TEXTURE, SCREEN_UV + COLOR.a*(SCREEN_PIXEL_SIZE * refraction_offset));
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_my675"]
+shader = SubResource("Shader_des1a")
+shader_parameter/crack_depth = 2.236
+shader_parameter/crack_scale = 4.0
+shader_parameter/crack_zebra_scale = 2.67
+shader_parameter/crack_zebra_amp = 0.0
+shader_parameter/crack_profile = 0.05
+shader_parameter/crack_slope = 45.8
+shader_parameter/crack_width = 0.05
+shader_parameter/refraction_offset = Vector2(25, 25)
+shader_parameter/reflection_offset = Vector2(1, 1)
+shader_parameter/reflection_color = Color(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dc0yf"]
+shader = SubResource("Shader_cw6gr")
+shader_parameter/direction = Vector2(0, -1)
+shader_parameter/start_color = Color(0, 0, 0, 0.85098)
+shader_parameter/end_color = Color(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_huql2"]
+shader = SubResource("Shader_cw6gr")
+shader_parameter/direction = Vector2(0, 1)
+shader_parameter/start_color = Color(0, 0, 0, 0.784314)
+shader_parameter/end_color = Color(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bilpt"]
+shader = SubResource("Shader_cw6gr")
+shader_parameter/direction = Vector2(0, -1)
+shader_parameter/start_color = Color(0, 0, 0, 0.458824)
+shader_parameter/end_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Shader" id="Shader_0m4lr"]
+code = "shader_type canvas_item;
+
+uniform float outerRadius : hint_range(0.0, 5.0) = 1.0;
+uniform float MainAlpha : hint_range(0.0, 1.0) = 1.0;
+
+void fragment() {
+	float x = abs(UV.x-.5)*2.0;
+	float y = abs(UV.y-.5)*2.0;
+	float v = (sqrt((x*x)+(y*y))/outerRadius);
+	COLOR = vec4(0,0,0,v*MainAlpha);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s4cbm"]
+shader = SubResource("Shader_0m4lr")
+shader_parameter/outerRadius = 0.55
+shader_parameter/MainAlpha = 0.3
+
+[sub_resource type="Animation" id="Animation_qclax"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/Layer1/CurrentPerson:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-300, 272)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Foreground/Layer1/Rope:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DayLayer/ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DayLayer/ColorRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Foreground/Layer1/Table/Bell/BellButton:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_bio07"]
+resource_name = "day_appear"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DayLayer/ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_bkegu"]
+resource_name = "day_change"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DayLayer/ColorRect:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"next_day"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_kri87"]
+resource_name = "person_accepted"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/Layer1/CurrentPerson:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(480, 272), Vector2(1260, 272)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Foreground/Layer1/Rope:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Foreground/Layer1/Table/Bell/BellButton:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_cdngt"]
+resource_name = "person_appear"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/Layer1/CurrentPerson:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(-300, 272), Vector2(480, 272)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_dialogue"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Foreground/Layer1/Rope:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Foreground/Layer1/Table/Bell/BellButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_7x6qn"]
+resource_name = "person_denied"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/Layer1/CurrentPerson:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [Vector2(480, 272), Vector2(-300, 272)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Foreground/Layer1/Rope:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Foreground/Layer1/Table/Bell/BellButton:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0e486"]
+_data = {
+"RESET": SubResource("Animation_qclax"),
+"day_appear": SubResource("Animation_bio07"),
+"day_change": SubResource("Animation_bkegu"),
+"person_accepted": SubResource("Animation_kri87"),
+"person_appear": SubResource("Animation_cdngt"),
+"person_denied": SubResource("Animation_7x6qn")
+}
+
+[node name="Test" type="Node2D"]
+script = ExtResource("1_vqj0k")
+dialogue = ExtResource("2_1rkhk")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Layer-1" type="Control" parent="Background"]
+z_index = -1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background/Layer-1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -151.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_w31ul")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Layer0" type="Control" parent="Background"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pillar" type="Sprite2D" parent="Background/Layer0"]
+position = Vector2(200, 176)
+texture = ExtResource("3_w31ul")
+region_enabled = true
+region_rect = Rect2(-71, -1, 283, 607)
+
+[node name="ColorRect" type="ColorRect" parent="Background/Layer0/Pillar"]
+material = SubResource("ShaderMaterial_jhuoh")
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = -304.0
+offset_right = 685.0
+offset_bottom = -131.0
+grow_horizontal = 2
+rotation = 1.5708
+mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Background/Layer0/Pillar"]
+material = SubResource("ShaderMaterial_rdxjg")
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -32.0
+offset_top = 632.0
+offset_right = 621.0
+offset_bottom = 805.0
+grow_horizontal = 2
+rotation = -1.5708
+mouse_filter = 2
+
+[node name="Mirror" type="Sprite2D" parent="Background/Layer0/Pillar"]
+modulate = Color(0.60933, 0.60933, 0.60933, 1)
+position = Vector2(-4.83984, 3.62012)
+rotation = 1.5708
+scale = Vector2(0.0785166, 0.0926298)
+texture = ExtResource("4_a5wtx")
+
+[node name="Panel" type="Panel" parent="Background/Layer0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -390.0
+offset_top = -225.0
+offset_right = -177.0
+offset_bottom = -81.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_74dnc")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tkyj1")
+
+[node name="Dialogue" type="MarginContainer" parent="Background/Layer0/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_74dnc")
+
+[node name="FateContainer" type="VBoxContainer" parent="Background/Layer0/Panel/Dialogue"]
+layout_mode = 2
+
+[node name="Shatter" type="ColorRect" parent="Background/Layer0"]
+visible = false
+clip_children = 1
+material = SubResource("ShaderMaterial_my675")
+layout_mode = 0
+offset_left = 120.0
+offset_top = 64.0
+offset_right = 272.0
+offset_bottom = 307.0
+
+[node name="TextureRect" type="TextureRect" parent="Background/Layer0/Shatter"]
+modulate = Color(0.597176, 0.597176, 0.597176, 1)
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_u3b56")
+expand_mode = 1
+
+[node name="Layer1" type="Control" parent="Background"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CurrentPerson" type="Control" parent="Background/Layer1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -780.0
+offset_top = -28.0
+offset_right = -780.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Person" type="TextureRect" parent="Background/Layer1/CurrentPerson"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -261.0
+offset_top = -286.5
+offset_right = 261.0
+offset_bottom = 142.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(261, 0)
+mouse_filter = 2
+texture = ExtResource("6_d2j14")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Mask" type="TextureRect" parent="Background/Layer1/CurrentPerson"]
+visible = false
+layout_mode = 0
+offset_left = -161.0
+offset_top = -290.0
+offset_right = 1399.0
+offset_bottom = 1190.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3sbmo")
+
+[node name="ColorRect" type="ColorRect" parent="Background/Layer1"]
+material = SubResource("ShaderMaterial_dc0yf")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -192.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ExampleBalloon" parent="." instance=ExtResource("4_fil87")]
+
+[node name="Foreground" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Layer1" type="Control" parent="Foreground"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Rope" parent="Foreground/Layer1" instance=ExtResource("7_solro")]
+modulate = Color(0.779291, 0.779291, 0.779291, 1)
+region_rect = Rect2(1230.06, 125.519, 269.905, 1170.63)
+disabled = true
+
+[node name="Table" type="TextureRect" parent="Foreground/Layer1"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("7_ttwh7")
+expand_mode = 1
+metadata/_edit_group_ = true
+
+[node name="Bell" type="Sprite2D" parent="Foreground/Layer1/Table"]
+modulate = Color(1.5, 1.5, 1, 1)
+position = Vector2(96, 88)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("11_nglo3")
+metadata/_edit_group_ = true
+
+[node name="BellButton" type="Button" parent="Foreground/Layer1/Table/Bell"]
+offset_left = -320.0
+offset_top = -640.0
+offset_right = 320.0
+offset_bottom = 640.0
+focus_mode = 0
+disabled = true
+flat = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Foreground/Layer1/Table"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 56.0
+offset_bottom = 161.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+
+[node name="CardsContainer" parent="Foreground/Layer1/Table/MarginContainer" node_paths=PackedStringArray("draw_engine", "canvas") instance=ExtResource("5_fmw04")]
+layout_mode = 2
+draw_engine = NodePath("../../../../..")
+canvas = NodePath("../../../..")
+
+[node name="ColorRect" type="ColorRect" parent="Foreground/Layer1/Table"]
+material = SubResource("ShaderMaterial_huql2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -280.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Foreground/Layer1/Table"]
+material = SubResource("ShaderMaterial_bilpt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 112.0
+offset_bottom = -168.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Foreground"]
+material = SubResource("ShaderMaterial_s4cbm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DayLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="ColorRect" type="ColorRect" parent="DayLayer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="DayLabel" type="Label" parent="DayLayer/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.5
+offset_top = -78.0
+offset_right = 157.5
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 128
+text = "Day 1"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0e486")
+}
+autoplay = "day_change"
+next/day_appear = &"day_change"
+
+[node name="Bell" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_lob6i")
+volume_db = -20.0
+bus = &"SFX"
+
+[node name="Shatter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_v8i7c")
+bus = &"SFX"
+
+[connection signal="draw" from="." to="." method="_on_draw"]
+[connection signal="pressed" from="Foreground/Layer1/Rope" to="." method="_on_rope_pressed"]
+[connection signal="pressed" from="Foreground/Layer1/Table/Bell/BellButton" to="." method="_on_bell_button_pressed"]

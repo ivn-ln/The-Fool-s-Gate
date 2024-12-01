@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Person" load_steps=7 format=3 uid="uid://ckakhmoppemy5"]
+
+[ext_resource type="Script" path="res://Scripts/person.gd" id="1_k5elh"]
+[ext_resource type="Resource" uid="uid://bfm31gp53mxbw" path="res://Resources/Fates/jester1.tres" id="1_l6c72"]
+[ext_resource type="Texture2D" uid="uid://dmdpvj3anxoky" path="res://Sprites/tarot_balatro.PNG" id="2_a4txg"]
+[ext_resource type="Resource" uid="uid://dyrky2ryg2r5d" path="res://Resources/Fates/jester2.tres" id="2_wd3v8"]
+[ext_resource type="Resource" uid="uid://bollimtqhu13m" path="res://Resources/Fates/jester3.tres" id="3_xdggc"]
+[ext_resource type="Texture2D" uid="uid://vcv1bx8b7g5s" path="res://Sprites/tarot_joker_corrupt.PNG" id="4_faqeu"]
+
+[resource]
+script = ExtResource("1_k5elh")
+person_name = "jester"
+dialogue = "jester"
+sprite = ExtResource("2_a4txg")
+sprite_corrupted = ExtResource("4_faqeu")
+fate1 = ExtResource("1_l6c72")
+fate2 = ExtResource("2_wd3v8")
+fate3 = ExtResource("3_xdggc")

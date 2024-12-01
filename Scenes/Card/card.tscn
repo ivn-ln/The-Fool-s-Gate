@@ -1,0 +1,181 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8qpc5a1iv5ey"]
+
+[ext_resource type="Script" path="res://Scenes/Card/card.gd" id="1_5rmxq"]
+[ext_resource type="Texture2D" uid="uid://cyj50ublikrno" path="res://Sprites/tarot_card_back.PNG" id="2_i0l2y"]
+[ext_resource type="Texture2D" uid="uid://dfp40f56o06dw" path="res://Sprites/tarot_paper_texture.PNG" id="3_fp57u"]
+[ext_resource type="FontFile" uid="uid://jcs5hni1xxnc" path="res://Fonts/Goudymedieval-K0Rl.ttf" id="3_no4gb"]
+[ext_resource type="FontFile" uid="uid://dbe3cc51q0kbq" path="res://Fonts/MedievalSharp-xOZ5.ttf" id="3_red1e"]
+[ext_resource type="Texture2D" uid="uid://bm6fd28twm6jm" path="res://Sprites/tarot_paper_trans.PNG" id="4_4ioek"]
+[ext_resource type="AudioStream" uid="uid://8kwbpeu72iia" path="res://Audio/card_move.mp3" id="7_f8d7u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i06sd"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61yup"]
+
+[node name="Card" type="Control"]
+custom_minimum_size = Vector2(0, 105)
+layout_mode = 3
+anchors_preset = 0
+offset_bottom = 105.0
+pivot_offset = Vector2(37, 52)
+script = ExtResource("1_5rmxq")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "IV - The Emperor"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1)
+pivot_offset = Vector2(37, 52)
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="TextureRect"]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.5
+offset_top = -47.5
+offset_right = 26.5
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i06sd")
+
+[node name="CardBack" type="TextureRect" parent="."]
+visible = false
+texture_filter = 4
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_right = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_i0l2y")
+expand_mode = 4
+
+[node name="Tip" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 999
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.5
+offset_top = -116.5
+offset_right = -5.5
+offset_bottom = -116.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Tip"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -192.0
+offset_right = 85.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_61yup")
+
+[node name="TextureRect" type="TextureRect" parent="Tip/PanelContainer"]
+modulate = Color(0.627451, 0.627451, 0.627451, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_fp57u")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Tip/PanelContainer"]
+self_modulate = Color(0.625597, 0.625597, 0.625597, 1)
+layout_mode = 2
+texture = ExtResource("4_4ioek")
+patch_margin_left = 27
+patch_margin_top = 27
+patch_margin_right = 27
+patch_margin_bottom = 27
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Tip/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tip/PanelContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Name" type="Label" parent="Tip/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_red1e")
+theme_override_font_sizes/font_size = 20
+text = "XVIII - The High Priestess"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Description" type="Label" parent="Tip/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.125911, 0.125911, 0.125911, 1)
+theme_override_fonts/font = ExtResource("3_no4gb")
+text = "Authority
+Structure
+Control
+Fatherhood"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Rotate" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 1
+flat = true
+
+[node name="Move" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_f8d7u")
+volume_db = -15.0
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="Rotate" to="." method="_on_rotate_pressed"]

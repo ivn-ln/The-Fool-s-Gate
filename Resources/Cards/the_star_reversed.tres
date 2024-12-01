@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://io5at7nprvnu"]
+
+[ext_resource type="Texture2D" uid="uid://drogdg7d1gcfl" path="res://Sprites/the_star.PNG" id="1_4lqws"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_dgt3g"]
+
+[resource]
+script = ExtResource("2_dgt3g")
+card_name = "the_star"
+card_display_name = "XVII. The Star (Reversed)"
+card_description = "Faithlessness
+Discouragement
+Insecurity"
+card_sprite = ExtResource("1_4lqws")
+reversed = true

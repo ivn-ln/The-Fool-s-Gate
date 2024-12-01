@@ -1,0 +1,103 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://ctw70s11iv3xo"]
+
+[ext_resource type="FontFile" uid="uid://jcs5hni1xxnc" path="res://Fonts/Goudymedieval-K0Rl.ttf" id="1_ifec4"]
+[ext_resource type="Texture2D" uid="uid://cfadpfe4t1phi" path="res://Sprites/tarot_paper.jpg" id="2_buqjr"]
+
+[sub_resource type="FontVariation" id="FontVariation_d62qc"]
+base_font = ExtResource("1_ifec4")
+spacing_top = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mbnv7"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("2_buqjr")
+texture_margin_left = 27.0
+texture_margin_top = 27.0
+texture_margin_right = 27.0
+texture_margin_bottom = 27.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lljs8"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("2_buqjr")
+texture_margin_left = 27.0
+texture_margin_top = 27.0
+texture_margin_right = 27.0
+texture_margin_bottom = 27.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1n23g"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("2_buqjr")
+texture_margin_left = 27.0
+texture_margin_top = 27.0
+texture_margin_right = 27.0
+texture_margin_bottom = 27.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c2ou0"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("2_buqjr")
+texture_margin_left = 27.0
+texture_margin_top = 27.0
+texture_margin_right = 27.0
+texture_margin_bottom = 27.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7s05n"]
+content_margin_left = 0.0
+content_margin_top = 20.0
+content_margin_right = 0.0
+content_margin_bottom = 20.0
+texture = ExtResource("2_buqjr")
+texture_margin_left = 27.0
+texture_margin_top = 27.0
+texture_margin_right = 27.0
+texture_margin_bottom = 27.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uy0d5"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[resource]
+default_font_size = 20
+Button/colors/font_color = Color(0.158472, 0.158472, 0.158472, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.5)
+Button/colors/font_hover_color = Color(0.299547, 0.299547, 0.299547, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/fonts/font = SubResource("FontVariation_d62qc")
+Button/styles/disabled = SubResource("StyleBoxTexture_mbnv7")
+Button/styles/focus = SubResource("StyleBoxTexture_lljs8")
+Button/styles/hover = SubResource("StyleBoxTexture_1n23g")
+Button/styles/normal = SubResource("StyleBoxTexture_c2ou0")
+Button/styles/pressed = SubResource("StyleBoxTexture_7s05n")
+MarginContainer/constants/margin_bottom = 15
+MarginContainer/constants/margin_left = 30
+MarginContainer/constants/margin_right = 30
+MarginContainer/constants/margin_top = 15
+Panel/styles/panel = SubResource("StyleBoxFlat_uy0d5")

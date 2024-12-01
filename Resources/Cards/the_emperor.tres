@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://k2vlhk5000ql"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_ifwp1"]
+[ext_resource type="Texture2D" uid="uid://mtdaiop1nf1k" path="res://Resources/Cards/the_emperor.PNG" id="1_ujr76"]
+
+[resource]
+script = ExtResource("1_ifwp1")
+card_name = "the_emperor"
+card_display_name = "IV. The Emperor"
+card_description = "Authority
+Structure
+Control
+Fatherhood"
+card_sprite = ExtResource("1_ujr76")
+reversed = false

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://c2gjfa5kvsho4"]
+
+[ext_resource type="Texture2D" uid="uid://c3lrw4rhadn21" path="res://Sprites/hermit.png" id="1_1x8wb"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_yu40i"]
+
+[resource]
+script = ExtResource("2_yu40i")
+card_name = "the_hermit"
+card_display_name = "IX The Hermit"
+card_description = "Contemplation
+Search for truth
+Inner guidance"
+card_sprite = ExtResource("1_1x8wb")

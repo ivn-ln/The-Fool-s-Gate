@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://cwcfkdkjsd20r"]
+
+[ext_resource type="Texture2D" uid="uid://c74lois7p8uus" path="res://Resources/Fates/justice.PNG" id="1_7ge2x"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_3cadw"]
+
+[resource]
+script = ExtResource("2_3cadw")
+card_name = "justice"
+card_display_name = "VIII. Justice (Reversed)"
+card_description = "Dishonesty
+Unaccountability
+Unfairness "
+card_sprite = ExtResource("1_7ge2x")
+reversed = true

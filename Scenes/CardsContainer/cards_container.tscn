@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://cufr5a78yk1op"]
+
+[ext_resource type="Script" path="res://Scenes/CardsContainer/cards_container.gd" id="1_phsv1"]
+[ext_resource type="Texture2D" uid="uid://bye0d3r3nems6" path="res://Sprites/card-back.png" id="2_6bsxy"]
+[ext_resource type="Script" path="res://addons/ShaderStacker/SpriteStack/SpriteStack.gd" id="3_vejh8"]
+[ext_resource type="Texture2D" uid="uid://cyj50ublikrno" path="res://Sprites/tarot_card_back.PNG" id="4_twv6p"]
+[ext_resource type="AudioStream" uid="uid://kyvc6ohj37nm" path="res://Audio/tarot_card_deal.mp3" id="5_x4ocf"]
+
+[node name="CardsContainer" type="HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+mouse_filter = 2
+theme_override_constants/separation = 32
+alignment = 2
+script = ExtResource("1_phsv1")
+
+[node name="Spacer" type="Control" parent="."]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="Deck" type="Button" parent="."]
+custom_minimum_size = Vector2(75, 105)
+layout_mode = 2
+focus_mode = 0
+flat = true
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Deck"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_6bsxy")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Deck"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 52.5
+offset_right = 20.0
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Deck"
+
+[node name="SpriteStack" type="Node2D" parent="Deck"]
+modulate = Color(1.25, 1.25, 1.25, 1)
+position = Vector2(41, 57)
+scale = Vector2(0.026, 0.026)
+script = ExtResource("3_vejh8")
+sprite_sheet = ExtResource("4_twv6p")
+layers = 32
+yaw = 5.75959
+pitch = 2.0
+static_yaw = true
+static_z = true
+
+[node name="Deal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_x4ocf")
+volume_db = -5.0
+max_polyphony = 10
+
+[connection signal="pressed" from="Deck" to="." method="_on_deck_pressed"]

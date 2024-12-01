@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://dg2a1uofpv2ea"]
+
+[ext_resource type="Script" path="res://Scenes/SceneTransitioner/scene_transitioner.gd" id="1_ua3og"]
+
+[node name="SceneTransitioner" type="Node"]
+process_mode = 3
+script = ExtResource("1_ua3og")
+
+[node name="SceneContainer1" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SceneContainer1"]
+
+[node name="SceneContainer2" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SceneContainer2"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="Curtain" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

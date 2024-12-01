@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://bfm31gp53mxbw"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_vyoqy"]
+[ext_resource type="Resource" uid="uid://dcslilwoxoyix" path="res://Resources/Cards/the_magician_reversed.tres" id="2_7of0r"]
+[ext_resource type="Resource" uid="uid://d0na4fbe4pm2r" path="res://Resources/Cards/the_empress.tres" id="3_fpvhn"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_nlb56"]
+
+[resource]
+script = ExtResource("4_nlb56")
+text_pieces = Array[String](["Sudden Death", "The King"])
+cards = Array[ExtResource("1_vyoqy")]([ExtResource("2_7of0r"), ExtResource("3_fpvhn")])

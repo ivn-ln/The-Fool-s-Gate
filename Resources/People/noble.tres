@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Person" load_steps=7 format=3 uid="uid://cy03vxw5m133i"]
+
+[ext_resource type="Resource" uid="uid://ci1ud6suvi46m" path="res://Resources/Fates/noble1.tres" id="1_0nkog"]
+[ext_resource type="Resource" uid="uid://ddddk81nkigi6" path="res://Resources/Fates/noble2.tres" id="2_5d8s4"]
+[ext_resource type="Script" path="res://Scripts/person.gd" id="2_vrocb"]
+[ext_resource type="Texture2D" uid="uid://bls6gph41kd2l" path="res://Sprites/tarot_noble.PNG" id="3_ahgkd"]
+[ext_resource type="Resource" uid="uid://bne2x7ddbxwfv" path="res://Resources/Fates/noble3.tres" id="3_fq1wu"]
+[ext_resource type="Texture2D" uid="uid://dorj6jypav7be" path="res://Sprites/tarot_noble_corrupt.PNG" id="4_h7185"]
+
+[resource]
+script = ExtResource("2_vrocb")
+person_name = "noble"
+dialogue = "noble"
+sprite = ExtResource("3_ahgkd")
+sprite_corrupted = ExtResource("4_h7185")
+fate1 = ExtResource("1_0nkog")
+fate2 = ExtResource("2_5d8s4")
+fate3 = ExtResource("3_fq1wu")

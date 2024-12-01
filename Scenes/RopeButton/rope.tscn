@@ -1,0 +1,96 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcpijf8sojsnl"]
+
+[ext_resource type="Texture2D" uid="uid://1r5mltknjhmv" path="res://Sprites/tarot_rope.PNG" id="1_qxntl"]
+[ext_resource type="Script" path="res://Scenes/RopeButton/rope.gd" id="2_nvyqc"]
+[ext_resource type="AudioStream" uid="uid://gpqyqej4snie" path="res://Audio/tarot-gates.mp3" id="3_jbcrq"]
+
+[sub_resource type="Animation" id="Animation_0a3wc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(648, 112)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gate:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8q30r"]
+resource_name = "press"
+length = 3.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 2.5, 3),
+"transitions": PackedFloat32Array(1, 2, 1, 1, 0.5),
+"update": 0,
+"values": [Vector2(648, 112), Vector2(648, 144), Vector2(648, -50), Vector2(648, 150), Vector2(648, 112)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gate:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 1.4, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qpa3r"]
+_data = {
+"RESET": SubResource("Animation_0a3wc"),
+"press": SubResource("Animation_8q30r")
+}
+
+[node name="Rope" type="Sprite2D"]
+modulate = Color(0.43134, 0.43134, 0.43134, 1)
+position = Vector2(648, 112)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("1_qxntl")
+region_enabled = true
+region_rect = Rect2(1249.97, 142.1, 247.936, 1176.91)
+script = ExtResource("2_nvyqc")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 72.0
+offset_top = -744.0
+offset_right = 1353.0
+offset_bottom = -598.0
+rotation = 1.5708
+focus_mode = 0
+flat = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qpa3r")
+}
+
+[node name="Gate" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_jbcrq")
+bus = &"SFX"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

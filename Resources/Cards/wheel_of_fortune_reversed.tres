@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://c807dr1xaawpp"]
+
+[ext_resource type="Texture2D" uid="uid://bhd3mupnjl0lk" path="res://Resources/Cards/wheel_of_fortune.PNG" id="1_n4tqk"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_q63u6"]
+
+[resource]
+script = ExtResource("2_q63u6")
+card_name = "wheel_of_fortune_reversed"
+card_display_name = "X. Whell Of Fortune (Reversed)"
+card_description = "No control
+Clinging to control
+Bad luck "
+card_sprite = ExtResource("1_n4tqk")
+reversed = true

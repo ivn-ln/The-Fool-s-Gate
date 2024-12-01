@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://jg5mcwrsrev3"]
+
+[ext_resource type="Texture2D" uid="uid://dyqrroy4foaol" path="res://Resources/Fates/devil.PNG" id="1_g0s68"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_ghalb"]
+
+[resource]
+script = ExtResource("2_ghalb")
+card_name = "judgement"
+card_display_name = "XX. Judgement"
+card_description = "Reflection
+Reckoning
+Awakening"
+card_sprite = ExtResource("1_g0s68")
+reversed = false

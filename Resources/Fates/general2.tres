@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://uimdm7jikwdl"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_0w4er"]
+[ext_resource type="Resource" uid="uid://k2vlhk5000ql" path="res://Resources/Cards/the_emperor.tres" id="2_x202y"]
+[ext_resource type="Resource" uid="uid://c807dr1xaawpp" path="res://Resources/Cards/wheel_of_fortune_reversed.tres" id="3_4jr7y"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_ciabf"]
+
+[resource]
+script = ExtResource("4_ciabf")
+text_pieces = Array[String](["Army's Order", "Chaos"])
+cards = Array[ExtResource("1_0w4er")]([ExtResource("2_x202y"), ExtResource("3_4jr7y")])

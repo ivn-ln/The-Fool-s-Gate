@@ -1,0 +1,141 @@
+[gd_scene load_steps=11 format=3 uid="uid://cb6qkt0f60qly"]
+
+[ext_resource type="Texture2D" uid="uid://cuwsf8gj43xvr" path="res://Sprites/tarot_bg.jpg" id="1_qkdkb"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_v2mak"]
+[ext_resource type="FontFile" uid="uid://jcs5hni1xxnc" path="res://Fonts/Goudymedieval-K0Rl.ttf" id="3_tuyke"]
+
+[sub_resource type="Shader" id="Shader_rv3dk"]
+code = "shader_type canvas_item;
+
+uniform float outerRadius : hint_range(0.0, 5.0) = 1.0;
+uniform float MainAlpha : hint_range(0.0, 1.0) = 1.0;
+
+void fragment() {
+	float x = abs(UV.x-.5)*2.0;
+	float y = abs(UV.y-.5)*2.0;
+	float v = (sqrt((x*x)+(y*y))/outerRadius);
+	COLOR = vec4(0,0,0,v*MainAlpha);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vdq0t"]
+shader = SubResource("Shader_rv3dk")
+shader_parameter/outerRadius = 0.55
+shader_parameter/MainAlpha = 0.5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hqu0x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fc2dx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_orrd0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wkwos"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_agrn7"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v2mak")
+
+[node name="TarotBg" type="Sprite2D" parent="."]
+position = Vector2(-46160, 300)
+texture = ExtResource("1_qkdkb")
+region_enabled = true
+region_rect = Rect2(0, 0, 100000, 600)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_vdq0t")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.360784)
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+offset_left = 256.0
+offset_top = 32.0
+offset_right = 698.0
+offset_bottom = 281.0
+theme_override_fonts/font = ExtResource("3_tuyke")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hqu0x")
+text = "The Fool's
+Gate"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -10.0
+offset_right = 109.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 72
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_fc2dx")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_orrd0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_wkwos")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_agrn7")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hqu0x")
+text = "Play"
+flat = true
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.678944, 0.678944, 0.678944, 1)
+theme_override_font_sizes/font_size = 48
+text = "Sound"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/Label"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.5
+offset_top = 8.0
+offset_right = 0.5
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+focus_mode = 0
+max_value = 1.0
+step = 0.2
+value = 1.0
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Label/HSlider" to="." method="_on_h_slider_value_changed"]

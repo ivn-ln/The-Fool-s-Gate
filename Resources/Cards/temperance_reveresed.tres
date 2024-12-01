@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://debrl1xjkebya"]
+
+[ext_resource type="Texture2D" uid="uid://4np7dul5e5kl" path="res://temperance.PNG" id="1_r1sim"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_3yup6"]
+
+[resource]
+script = ExtResource("2_3yup6")
+card_name = "temperance"
+card_display_name = "XIV. Temperance (Reversed)"
+card_description = "Extremes
+Excess
+Lack of balance"
+card_sprite = ExtResource("1_r1sim")
+reversed = true

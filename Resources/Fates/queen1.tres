@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://djrug0ypdm48e"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_0tcm3"]
+[ext_resource type="Resource" uid="uid://dcslilwoxoyix" path="res://Resources/Cards/the_magician_reversed.tres" id="2_272a4"]
+[ext_resource type="Resource" uid="uid://1lefbg21p7q5" path="res://Resources/Cards/the_star.tres" id="3_ecdl7"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_q62ic"]
+
+[resource]
+script = ExtResource("4_q62ic")
+text_pieces = Array[String](["Deception", "Relief"])
+cards = Array[ExtResource("1_0tcm3")]([ExtResource("2_272a4"), ExtResource("3_ecdl7")])

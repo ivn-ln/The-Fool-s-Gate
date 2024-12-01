@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://1lefbg21p7q5"]
+
+[ext_resource type="Texture2D" uid="uid://drogdg7d1gcfl" path="res://Sprites/the_star.PNG" id="1_w2poy"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_tfhrd"]
+
+[resource]
+script = ExtResource("2_tfhrd")
+card_name = "the_star"
+card_display_name = "XVII. The Star"
+card_description = "Hope
+Faith
+Rejuvenation "
+card_sprite = ExtResource("1_w2poy")
+reversed = false

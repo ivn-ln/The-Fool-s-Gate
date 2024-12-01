@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://ci1ud6suvi46m"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_xcctm"]
+[ext_resource type="Resource" uid="uid://db5weg4usmuub" path="res://Resources/Cards/devil.tres" id="2_h50k5"]
+[ext_resource type="Resource" uid="uid://k2vlhk5000ql" path="res://Resources/Cards/the_emperor.tres" id="2_on4yw"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_uvd1g"]
+
+[resource]
+script = ExtResource("4_uvd1g")
+text_pieces = Array[String](["Corrupt Desires", "Power"])
+cards = Array[ExtResource("1_xcctm")]([ExtResource("2_h50k5"), ExtResource("2_on4yw")])

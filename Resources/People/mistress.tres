@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Person" load_steps=7 format=3 uid="uid://cvd5i46d5us0h"]
+
+[ext_resource type="Resource" uid="uid://2citpnxbj4lj" path="res://Resources/Fates/mistress1.tres" id="1_wl8nj"]
+[ext_resource type="Resource" uid="uid://cn10qpot8l32y" path="res://Resources/Fates/mistress2.tres" id="2_i73o5"]
+[ext_resource type="Script" path="res://Scripts/person.gd" id="2_s6rys"]
+[ext_resource type="Texture2D" uid="uid://cxnrcrbgd5evf" path="res://Sprites/tarot_mistress.PNG" id="3_bwywr"]
+[ext_resource type="Resource" uid="uid://jh4a566jdrc1" path="res://Resources/Fates/mistress3.tres" id="3_ncrg3"]
+[ext_resource type="Texture2D" uid="uid://dbskckvwtlsxh" path="res://Sprites/tarot_mistress_corrupt.PNG" id="4_cqnd3"]
+
+[resource]
+script = ExtResource("2_s6rys")
+person_name = "mistress"
+dialogue = "mistress"
+sprite = ExtResource("3_bwywr")
+sprite_corrupted = ExtResource("4_cqnd3")
+fate1 = ExtResource("1_wl8nj")
+fate2 = ExtResource("2_i73o5")
+fate3 = ExtResource("3_ncrg3")

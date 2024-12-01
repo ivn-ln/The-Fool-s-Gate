@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://btxqltlpqlcra"]
+
+[ext_resource type="Texture2D" uid="uid://c0qoox1vdq0su" path="res://Sprites/the_tower.png" id="1_rf5wb"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_kptah"]
+
+[resource]
+script = ExtResource("2_kptah")
+card_name = "the_tower"
+card_display_name = "XVI. The Tower"
+card_description = "Sudden upheaval
+Broken pride
+Disaster"
+card_sprite = ExtResource("1_rf5wb")

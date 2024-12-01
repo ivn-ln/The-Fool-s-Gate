@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://dcslilwoxoyix"]
+
+[ext_resource type="Texture2D" uid="uid://boxqkqdw55ylu" path="res://Sprites/tarot-card-the-magician.png" id="1_yio48"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_82bsx"]
+
+[resource]
+script = ExtResource("2_82bsx")
+card_name = "the_magician_reversed"
+card_display_name = "I. The Magician (Reversed)"
+card_description = "Trickery
+Illusions
+Out of touch "
+card_sprite = ExtResource("1_yio48")
+reversed = true

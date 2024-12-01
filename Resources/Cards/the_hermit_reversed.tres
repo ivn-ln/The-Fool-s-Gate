@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://b2wgshjfniwqx"]
+
+[ext_resource type="Texture2D" uid="uid://c3lrw4rhadn21" path="res://Sprites/hermit.png" id="1_p14ry"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_splx1"]
+
+[resource]
+script = ExtResource("2_splx1")
+card_name = "the_hermit"
+card_display_name = "IX The Hermit (Reversed)"
+card_description = "Loneliness
+Isolation
+Lost your way"
+card_sprite = ExtResource("1_p14ry")
+reversed = true

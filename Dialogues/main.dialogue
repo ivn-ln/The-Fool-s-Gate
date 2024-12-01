@@ -1,0 +1,65 @@
+~ noble1
+Noble man: Inform the King that I bring urgent matters concerning the nobility.
+Noble man: His unmatched wisdom is essential to guide our decisions
+- Wait
+~ noble2
+Noble man: I must inform the King of unusual movements among the peasants.
+Noble man: This could be the first signs of unrest. We need his word
+- Wait
+~ noble3
+Noble man: [wave amp=10 freq=15]Please... You must understand... Things are unraveling...[/wave]
+Noble man: [wave amp=10 freq=15]I beg you, let me speak to the King...[/wave]
+Noble man: [wave amp=10 freq=20]I... I can’t bear the thought of what might happen...[/wave]
+- Wait
+~ queen1
+Queen: I need to speak with the King about a personal matter.
+Queen: Something that concerns the royal family dearly
+- Wait
+~ queen2
+Queen: I need to discuss an important matters with my husband
+- Wait
+~ queen3
+Queen: Pss... Where is he? [shake rate=20 level=10]I can't bear this any longer.[/shake]
+- Wait
+~ mistress1
+Maid: Please inform the King that I have urgent personal matters to discuss with him
+Maid: Matters that require his full attention, and mine alone
+- Wait
+~ mistress2
+Maid: I must have a word with His Majesty about something delicate—his insight is needed
+- Wait
+~ mistress3
+Maid: Report to the King... Something isn't right... I'm frightened...
+Maid: Only he can offer me guidance.
+~ jester1
+Jester: I have tidings for the king that will brighten his week
+- Wait
+~ jester2
+Jester: I'm here to relieve His Majesty of every burden that troubles him
+- Wait
+~ jester3
+Jester: [shake rate=5 level=10]Harr-harr-harrr...[/shake] Do you hear these voices?
+Jester: [shake rate=10 level=10]I need to tell their stories to His Majesty[/shake]
+- Wait
+~ general1
+Captain: I've come to report to His Majesty on the state of our troops.
+- Wait
+~ general2
+Captain: Grave issues are unfolding within our ranks. I must speak with the King at once.
+- Wait
+~ general3
+Captain: [shake rate=50 level=2]Treason! Traitors are everywhere! I must ensure the King's safety![/shake]
+- Wait
+~ accepted
+You're welcoming them into the castle
+- Wait
+~ masks1
+Masked Man: [[[wave amp=25 freq=5]...[/wave]|[shake rate=20 level=10]...[/shake]|...|]]
+- Wait
+~ masks2
+Masked Man: [[[wave amp=25 freq=5]...[/wave]|[shake rate=20 level=10]...[/shake]|...|]]
+- Wait
+~ denied
+You tell them to get out
+- Wait
+=> END

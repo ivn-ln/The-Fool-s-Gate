@@ -1,0 +1,39 @@
+~ ending
+if ending_status["jester"][1] == true and ending_status["jester"][2] == true and ending_status["jester"][3] == false:
+	Ending: The Jester, with his clever wit and diplomatic skills, swiftly earned the respect of the court, emerging as a key mediator in resolving conflicts.
+#elif float(ending_status["jester"][1]) + ending_status["jester"][2] + ending_status["jester"][3] == 2:
+#	Ending: Despite his best efforts, the Jester remained in the same position in the courtyard, continuing to entertain the neighbors, but without gaining any significant influence or respect.
+else:
+	Ending: The Jester, in his attempt to win favor with everyone, ultimately lost the trust of the court due to his ill-timed jokes and thoughtless behavior. As a result, the King chose to dismiss him from the court.
+set Signals.next_person.emit()
+if ending_status["queen"][3] == true:
+	Ending: On the third day, the King, swayed by the Queen's plea, allowed her into his chamber. Unbeknownst to him she had masterminded the moment, and his death followed swiftly, sealing his fate.
+elif ending_status["queen"][1] == true and ending_status["queen"][2] == true and ending_status["queen"][3] == false:
+	Ending: The Queen, with her wisdom and determination, overcame the illness and used the opportunity to strengthen her position at court. She preserved the unity of her family, earning the unwavering support and respect of her subjects.
+#elif ending_status["queen"][1] + ending_status["queen"][2] + ending_status["queen"][3] == 2:
+#	Ending: The Queen survived the illness, yet her position remained unchanged, and the dynamics within the family remained as complex as ever.
+else:
+	Ending: The Queen lost the trust of the court and fractured family relations, and her death from the plague deepened the state’s crisis.
+set Signals.next_person.emit()
+if ending_status["general"][1] == false and ending_status["general"][2] == true and ending_status["general"][3] == true:
+	Ending: The General, through his strategic prowess and strong will, preserved and strengthened the army in challenging times. His death from the plague did not weaken the forces but united them. The Kingdom will long remember him as a resolute and capable leader.
+#elif ending_status["general"][1] + ending_status["general"][2] + ending_status["general"][3] == 2:
+#	Ending: The General, with his steady leadership, maintained the army through difficult times. His death from the plague marked the end of an era, but the army remains strong, and its future now depends on the leadership that follows.
+else:
+	Ending: The General was unable to bring about significant change in the army. His death from the plague left the forces ill-prepared for future challenges, and all that remains is hope that the new leadership can unite and strengthen them.
+set Signals.next_person.emit()
+if ending_status["noble"][1] == false and ending_status["noble"][2] == true and ending_status["noble"][3] == false:
+	Ending: Through skillful politics and the King’s support, the nobility strengthened their position, acquiring new lands and privileges. They also managed to protect their estates from the plague, helping to prevent the kingdom from falling into famine.
+#elif ending_status["noble"][1] + ending_status["noble"][2] + ending_status["noble"][3] == 1:
+#	Ending: Despite their efforts, the nobility could not significantly improve their position, and their influence remained largely unchanged. The plague severely impacted their estates, leaving the kingdom on the brink of famine. Enormous efforts will now be required to ensure the kingdom’s subjects are fed.
+else:
+	Ending: In their attempt to improve their position, the nobility made critical mistakes that led to conflict with the King. The plague ravaged estates across the kingdom, plunging the land into widespread famine.
+set Signals.next_person.emit()
+if ending_status["mistress"][1] == false and ending_status["mistress"][2] == false and ending_status["mistress"][3] == true:
+	Ending: The Maid, leveraging the King’s favor, improved her position at court, gaining significant influence and privileges. Surviving the plague, she secured power that other courtiers could only dream of.
+#elif ending_status["mistress"][1] + ending_status["mistress"][2] + ending_status["mistress"][3] == 1:
+#	Ending: The Maid, despite her close relationship with the King, remained in the same position as before. Her influence at court did not grow, and her attempts to gain more power were unsuccessful.
+else:
+	The Maid, once benefiting from the King’s attention, initially improved her position. However, her growing ambitions and intrigues ultimately led to her downfall, stripping her of everything she had gained. Her death from the plague went unnoticed by all.
+Ending: Thank you for finishing the game! Leave a comment if you liked
+=> END

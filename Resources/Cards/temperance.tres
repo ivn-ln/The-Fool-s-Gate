@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://7sdn7eini064"]
+
+[ext_resource type="Texture2D" uid="uid://4np7dul5e5kl" path="res://temperance.PNG" id="1_oknjb"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_e5m85"]
+
+[resource]
+script = ExtResource("2_e5m85")
+card_name = "the_temperance"
+card_display_name = "XIV. Temperance"
+card_description = "Middle path
+Patience
+Finding meaning"
+card_sprite = ExtResource("1_oknjb")
+reversed = false

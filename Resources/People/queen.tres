@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Person" load_steps=7 format=3 uid="uid://gi1qbgodikt0"]
+
+[ext_resource type="Resource" uid="uid://djrug0ypdm48e" path="res://Resources/Fates/queen1.tres" id="1_lnci0"]
+[ext_resource type="Script" path="res://Scripts/person.gd" id="2_pyqnh"]
+[ext_resource type="Resource" uid="uid://lcpx8p02mqms" path="res://Resources/Fates/queen2.tres" id="2_xp4ec"]
+[ext_resource type="Resource" uid="uid://ctads0vdaku3b" path="res://Resources/Fates/queen3.tres" id="3_br13p"]
+[ext_resource type="Texture2D" uid="uid://dpguxq4k44dmk" path="res://Sprites/tarot_queen.PNG" id="3_cy5l6"]
+[ext_resource type="Texture2D" uid="uid://b8lcxfeuux6t3" path="res://Sprites/tarot_queen_corrupt.PNG" id="4_k3hbm"]
+
+[resource]
+script = ExtResource("2_pyqnh")
+person_name = "queen"
+dialogue = "queen"
+sprite = ExtResource("3_cy5l6")
+sprite_corrupted = ExtResource("4_k3hbm")
+fate1 = ExtResource("1_lnci0")
+fate2 = ExtResource("2_xp4ec")
+fate3 = ExtResource("3_br13p")

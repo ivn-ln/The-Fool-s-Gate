@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=6 format=3 uid="uid://2citpnxbj4lj"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_ym4go"]
+[ext_resource type="Resource" uid="uid://btxqltlpqlcra" path="res://Resources/Cards/the_tower.tres" id="2_c3xf3"]
+[ext_resource type="Resource" uid="uid://db5weg4usmuub" path="res://Resources/Cards/devil.tres" id="2_yxlhv"]
+[ext_resource type="Resource" uid="uid://d0na4fbe4pm2r" path="res://Resources/Cards/the_empress.tres" id="3_5h7v5"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_vquha"]
+
+[resource]
+script = ExtResource("4_vquha")
+text_pieces = Array[String](["Manipulation", "Dependance", "Downfall"])
+cards = Array[ExtResource("1_ym4go")]([ExtResource("2_yxlhv"), ExtResource("3_5h7v5"), ExtResource("2_c3xf3")])

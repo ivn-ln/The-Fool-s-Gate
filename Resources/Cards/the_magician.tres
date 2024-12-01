@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardRes" load_steps=3 format=3 uid="uid://bvs50clryutgc"]
+
+[ext_resource type="Texture2D" uid="uid://boxqkqdw55ylu" path="res://Sprites/tarot-card-the-magician.png" id="1_5v5o2"]
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="2_c3ddg"]
+
+[resource]
+script = ExtResource("2_c3ddg")
+card_name = "the_magician"
+card_display_name = "I. The Magician"
+card_description = "Willpower
+Desire
+Creation
+Manifestation "
+card_sprite = ExtResource("1_5v5o2")

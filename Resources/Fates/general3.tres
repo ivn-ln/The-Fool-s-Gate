@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Fate" load_steps=5 format=3 uid="uid://s5nht57rqsv4"]
+
+[ext_resource type="Script" path="res://Scripts/card_res.gd" id="1_kbtr1"]
+[ext_resource type="Resource" uid="uid://btxqltlpqlcra" path="res://Resources/Cards/the_tower.tres" id="2_xp4ao"]
+[ext_resource type="Resource" uid="uid://debrl1xjkebya" path="res://Resources/Cards/temperance_reveresed.tres" id="3_gxx0s"]
+[ext_resource type="Script" path="res://Scripts/fate.gd" id="4_pk034"]
+
+[resource]
+script = ExtResource("4_pk034")
+text_pieces = Array[String](["Traitors", "Extremes", "Death"])
+cards = Array[ExtResource("1_kbtr1")]([ExtResource("2_xp4ao"), ExtResource("3_gxx0s"), ExtResource("2_xp4ao")])
